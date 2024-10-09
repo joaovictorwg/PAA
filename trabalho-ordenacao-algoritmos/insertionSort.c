@@ -3,23 +3,25 @@
 #include <locale.h>
 #include <time.h>
 
-// Função de Bubble Sort com contagem de comparações e trocas
-void bubble_sort(int *vetor, int tamanho, long long *comparacoes, long long *trocas) {
-    for (int i = 0; i < tamanho - 1; i++) {
-        for (int j = 0; j < tamanho - i - 1; j++) {
-            (*comparacoes)++;  // Conta cada comparação
-            if (vetor[j] > vetor[j + 1]) {
-                int temp = vetor[j];
-                vetor[j] = vetor[j + 1];
-                vetor[j + 1] = temp;
-                (*trocas)++;  // Conta cada troca
-            }
+// Função de Insertion Sort com contagem de comparações e trocas
+void insertion_sort(int *vetor, int tamanho, long long *comparacoes, long long *trocas) {
+    for (int i = 1; i < tamanho; i++) {
+        int chave = vetor[i];
+        int j = i - 1;
+
+        (*comparacoes)++;  // Conta a primeira comparação
+        while (j >= 0 && vetor[j] > chave) {
+            vetor[j + 1] = vetor[j];
+            j--;
+            (*comparacoes)++;  // Conta as comparações no laço while
+            (*trocas)++;  // Conta as trocas de posição
         }
+        vetor[j + 1] = chave;
     }
 }
 
-// Função para testar o Bubble Sort e medir tempo, comparações e trocas
-void testar_bubble_sort(int *lista, int tamanho, const char *descricao) {
+// Função para testar o Insertion Sort e medir tempo, comparações e trocas
+void testar_insertion_sort(int *lista, int tamanho, const char *descricao) {
     long long comparacoes = 0;  // Inicializa contagem de comparações
     long long trocas = 0;  // Inicializa contagem de trocas
     
@@ -27,7 +29,7 @@ void testar_bubble_sort(int *lista, int tamanho, const char *descricao) {
 
     clock_t inicio = clock();  // Captura o tempo inicial
 
-    bubble_sort(lista, tamanho, &comparacoes, &trocas);  // Ordena a lista
+    insertion_sort(lista, tamanho, &comparacoes, &trocas);  // Ordena a lista
 
     clock_t fim = clock();  // Captura o tempo final
     double tempo_gasto = (double)(fim - inicio) * 1000.0 / CLOCKS_PER_SEC;  // Tempo em milissegundos
@@ -82,25 +84,25 @@ int main() {
     int *CemOrdenada = ler_lista_de_arquivo("listas/lista_ordenada_100000.txt", cemMil);
     int *CemInversa = ler_lista_de_arquivo("listas/lista_inversa_100000.txt", cemMil);
 
-    // Testar o Bubble Sort com listas de tamanho 1.000
-    testar_bubble_sort(MilAleatoria, mil, "Aleatória de 1.000 elementos");
-    testar_bubble_sort(MilOrdenada, mil, "Ordenada de 1.000 elementos");
-    testar_bubble_sort(MilInversa, mil, "Inversa de 1.000 elementos");
+    // Testar o Insertion Sort com listas de tamanho 1.000
+    testar_insertion_sort(MilAleatoria, mil, "Aleatória de 1.000 elementos");
+    testar_insertion_sort(MilOrdenada, mil, "Ordenada de 1.000 elementos");
+    testar_insertion_sort(MilInversa, mil, "Inversa de 1.000 elementos");
 
-    // Testar o Bubble Sort com listas de tamanho 10.000
-    testar_bubble_sort(DezAleatoria, dezMil, "Aleatória de 10.000 elementos");
-    testar_bubble_sort(DezOrdenada, dezMil, "Ordenada de 10.000 elementos");
-    testar_bubble_sort(DezInversa, dezMil, "Inversa de 10.000 elementos");
+    // Testar o Insertion Sort com listas de tamanho 10.000
+    testar_insertion_sort(DezAleatoria, dezMil, "Aleatória de 10.000 elementos");
+    testar_insertion_sort(DezOrdenada, dezMil, "Ordenada de 10.000 elementos");
+    testar_insertion_sort(DezInversa, dezMil, "Inversa de 10.000 elementos");
 
-    // Testar o Bubble Sort com listas de tamanho 50.000
-    testar_bubble_sort(CinquentaAleatoria, cinquentaMil, "Aleatória de 50.000 elementos");
-    testar_bubble_sort(CinquentaOrdenada, cinquentaMil, "Ordenada de 50.000 elementos");
-    testar_bubble_sort(CinquentaInversa, cinquentaMil, "Inversa de 50.000 elementos");
+    // Testar o Insertion Sort com listas de tamanho 50.000
+    testar_insertion_sort(CinquentaAleatoria, cinquentaMil, "Aleatória de 50.000 elementos");
+    testar_insertion_sort(CinquentaOrdenada, cinquentaMil, "Ordenada de 50.000 elementos");
+    testar_insertion_sort(CinquentaInversa, cinquentaMil, "Inversa de 50.000 elementos");
 
-    // Testar o Bubble Sort com listas de tamanho 100.000
-    testar_bubble_sort(CemAleatoria, cemMil, "Aleatória de 100.000 elementos");
-    testar_bubble_sort(CemOrdenada, cemMil, "Ordenada de 100.000 elementos");
-    testar_bubble_sort(CemInversa, cemMil, "Inversa de 100.000 elementos");
+    // Testar o Insertion Sort com listas de tamanho 100.000
+    testar_insertion_sort(CemAleatoria, cemMil, "Aleatória de 100.000 elementos");
+    testar_insertion_sort(CemOrdenada, cemMil, "Ordenada de 100.000 elementos");
+    testar_insertion_sort(CemInversa, cemMil, "Inversa de 100.000 elementos");
 
     // Liberar a memória das listas lidas
     free(MilAleatoria);
