@@ -10,19 +10,19 @@ void bubble_sort(int *lista, int n, long long *comparacoes, long long *trocas) {
 
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - 1 - i; j++) {
-            (*comparacoes)++;  // Cada comparação é registrada
+            (*comparacoes)++;  // registrar as comparações
             if (lista[j] > lista[j + 1]) {
                 // Troca de elementos
                 int temp = lista[j];
                 lista[j] = lista[j + 1];
                 lista[j + 1] = temp;
-                (*trocas)++;  // Cada troca é registrada
+                (*trocas)++;  // registrar as trocas
             }
         }
     }
 }
 
-// Função para gerar uma cópia da lista
+// função para gerar uma cópia da lista
 int* copiar_lista(int *lista, int tamanho) {
     int *nova_lista = (int*)malloc(tamanho * sizeof(int));
     for (int i = 0; i < tamanho; i++) {
@@ -31,7 +31,7 @@ int* copiar_lista(int *lista, int tamanho) {
     return nova_lista;
 }
 
-// Função para testar o Bubble Sort e exibir as métricas
+// função para testar o Bubble Sort e exibir as métricas
 void testar_bubble_sort(int *lista, int tamanho, const char* nome_lista) {
     printf("\nOrdenando a lista %s usando Bubble Sort...\n", nome_lista);
 
@@ -39,12 +39,12 @@ void testar_bubble_sort(int *lista, int tamanho, const char* nome_lista) {
     int *lista_copia = copiar_lista(lista, tamanho);
 
     long long comparacoes = 0, trocas = 0;
-    clock_t inicio = clock();  // Início da medição do tempo
+    clock_t inicio = clock();  // inicio da medição do tempo
 
     // Chamar o Bubble Sort
     bubble_sort(lista_copia, tamanho, &comparacoes, &trocas);
 
-    clock_t fim = clock();  // Fim da medição do tempo
+    clock_t fim = clock();  // fim da medição do tempo
     double tempo_execucao = (double)(fim - inicio) * 1000.0 / CLOCKS_PER_SEC;  // Convertendo para milissegundos
 
     // Exibir resultados
@@ -53,10 +53,10 @@ void testar_bubble_sort(int *lista, int tamanho, const char* nome_lista) {
     printf("Número de Trocas: %lld\n", trocas);
     printf("----------------------------------------\n");
 
-    free(lista_copia);  // Liberar memória da cópia da lista
+    free(lista_copia);  // liberar memória da cópia da lista
 }
 
-// Função para gerar listas
+// função para gerar listas
 void gerar_listas(int tamanho, int **lista_aleatoria, int **lista_ordenada, int **lista_inversa) {
     *lista_aleatoria = (int*)malloc(tamanho * sizeof(int));
     *lista_ordenada = (int*)malloc(tamanho * sizeof(int));
@@ -75,10 +75,11 @@ void gerar_listas(int tamanho, int **lista_aleatoria, int **lista_ordenada, int 
     for (int i = 0; i < tamanho; i++) {
         (*lista_inversa)[i] = tamanho - i;
     }
+
 }
 
 int main() {
-    srand(time(NULL));  // Inicializar a semente do gerador de números aleatórios
+    srand(time(NULL));  // inicializar a semente do gerador de números aleatórios
 
     setlocale(LC_ALL, "Portuguese_Brazil");
     // Tamanhos das listas
@@ -112,6 +113,8 @@ int main() {
     testar_bubble_sort(CinquentaAleatoria, cinquentaMil, "Aleatória de 50.000 elementos");
     testar_bubble_sort(CinquentaOrdenada, cinquentaMil, "Ordenada de 50.000 elementos");
     testar_bubble_sort(CinquentaInversa, cinquentaMil, "Inversa de 50.000 elementos");
+
+    
 
     // Testar o Bubble Sort com listas de tamanho 100.000
     testar_bubble_sort(CemAleatoria, cemMil, "Aleatória de 100.000 elementos");
