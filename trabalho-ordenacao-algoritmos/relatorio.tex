@@ -1,0 +1,726 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts} % Para mais símbolos matemáticos
+\usepackage{amssymb}  % Para mais símbolos matemáticos
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{booktabs}  % Para tabelas mais bonitas
+\usepackage{caption}    % Para personalizar legendas
+\usepackage{listings}   % Para incluir código
+\usepackage{geometry}   % Para definir margens
+\pgfplotsset{compat=1.18}
+\usepackage{float}
+
+
+\title{Relatório: Análise Empírica de Algoritmos de Ordenação}
+\author{João Victor Walcacer Giani e Daniel Nolêto Maciel Luz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section{Introdução}
+
+A ordenação de dados é uma tarefa fundamental em ciência da computação, tendo uma ampla aplicação em diversas áreas como banco de dados, algoritmos de busca, e em sistemas que necessitam de respostas eficientes e rápidas. Uma ordenação eficiente é crucial para otimizar o desempenho de um sistema, especialmente quando se trabalha com grandes volumes de dados. Vários algoritmos de ordenação foram desenvolvidos ao longo do tempo, cada um com suas características, pontos fortes e fracos, sendo utilizados conforme a necessidade do problema a ser resolvido.
+
+Este trabalho tem como objetivo realizar uma análise comparativa dos algoritmos de ordenação \textit{Bubble Sort}, \textit{Selection Sort}, \textit{Insertion Sort}, \textit{Merge Sort}, \textit{Quick Sort} e \textit{Heap Sort}. A análise será feita tanto do ponto de vista teórico quanto prático, observando o desempenho de cada algoritmo com diferentes tamanhos de listas e distribuições de dados (ordenados, inversamente ordenados e aleatórios). Além disso, serão medidos o tempo de execução, o número de comparações e o número de trocas efetuadas por cada algoritmo.
+
+\section{Revisão Teórica}
+
+Nesta seção, serão descritos os algoritmos de ordenação implementados neste trabalho, abordando suas características principais: complexidade, se são in-place e sua estabilidade.
+
+\subsection{Bubble Sort}
+O \textit{Bubble Sort} é um algoritmo de ordenação simples que compara pares de elementos adjacentes e os troca se estiverem na ordem errada. Este processo é repetido até que a lista esteja ordenada.
+
+\begin{itemize}
+    \item \textbf{Complexidade:} A complexidade de tempo do \textit{Bubble Sort} no melhor caso é $O(n)$, quando a lista já está ordenada. Nos casos médio e pior, a complexidade é $O(n^2)$.
+    \item \textbf{In-place:} Sim, o \textit{Bubble Sort} é um algoritmo in-place, pois não requer memória adicional significativa além da utilizada pela própria lista.
+    \item \textbf{Estabilidade:} Sim, o \textit{Bubble Sort} é estável, já que ele preserva a ordem relativa dos elementos com chaves iguais.
+\end{itemize}
+
+\subsection{Selection Sort}
+O \textit{Selection Sort} funciona selecionando o menor (ou maior) elemento de uma lista e o colocando na posição correta. Este processo é repetido até que a lista esteja ordenada.
+
+\begin{itemize}
+    \item \textbf{Complexidade:} A complexidade de tempo do \textit{Selection Sort} é $O(n^2)$ em todos os casos, já que sempre é necessário percorrer a lista para encontrar o menor elemento.
+    \item \textbf{In-place:} Sim, o \textit{Selection Sort} é in-place, pois a ordenação ocorre dentro do próprio array.
+    \item \textbf{Estabilidade:} Não, o \textit{Selection Sort} não é estável, pois pode trocar elementos iguais, alterando sua ordem relativa.
+\end{itemize}
+
+\subsection{Insertion Sort}
+O \textit{Insertion Sort} ordena a lista construindo uma sublista ordenada à esquerda, inserindo elementos da lista desordenada à direita em suas posições corretas.
+
+\begin{itemize}
+    \item \textbf{Complexidade:} A complexidade de tempo no melhor caso é $O(n)$, quando a lista já está ordenada. No caso médio e pior, a complexidade é $O(n^2)$.
+    \item \textbf{In-place:} Sim, o \textit{Insertion Sort} é in-place, pois não requer espaço adicional significativo.
+    \item \textbf{Estabilidade:} Sim, o \textit{Insertion Sort} é estável, já que preserva a ordem relativa dos elementos iguais.
+\end{itemize}
+
+\subsection{Merge Sort}
+O \textit{Merge Sort} é um algoritmo de ordenação baseado na técnica de divisão e conquista. Ele divide a lista em duas sublistas, ordena-as recursivamente e, em seguida, as mescla de volta em uma lista ordenada.
+
+\begin{itemize}
+    \item \textbf{Complexidade:} A complexidade de tempo do \textit{Merge Sort} é $O(n \log n)$ em todos os casos, devido à divisão recursiva da lista.
+    \item \textbf{In-place:} Não, o \textit{Merge Sort} não é in-place, pois requer espaço adicional para armazenar as sublistas temporárias durante o processo de merge.
+    \item \textbf{Estabilidade:} Sim, o \textit{Merge Sort} é estável, pois preserva a ordem relativa dos elementos iguais durante o processo de merge.
+\end{itemize}
+
+\subsection{Quick Sort}
+O \textit{Quick Sort} também usa a técnica de divisão e conquista, escolhendo um elemento como pivô e particionando a lista em sublistas com elementos menores e maiores que o pivô. O processo é repetido recursivamente.
+
+\begin{itemize}
+    \item \textbf{Complexidade:} A complexidade de tempo no melhor e médio caso é $O(n \log n)$, mas no pior caso, quando o pivô escolhido não é o ideal, a complexidade pode ser $O(n^2)$.
+    \item \textbf{In-place:} Sim, o \textit{Quick Sort} é in-place, já que a ordenação ocorre dentro do próprio array sem necessidade de memória extra significativa.
+    \item \textbf{Estabilidade:} Não, o \textit{Quick Sort} não é estável, pois a troca de elementos pode alterar a ordem relativa de elementos iguais.
+\end{itemize}
+
+\subsection{Heap Sort}
+O \textit{Heap Sort} utiliza uma estrutura de dados chamada heap (máximo ou mínimo) para organizar os elementos. O algoritmo constrói um heap a partir da lista e, em seguida, extrai os elementos em ordem.
+
+\begin{itemize}
+    \item \textbf{Complexidade:} A complexidade de tempo do \textit{Heap Sort} é $O(n \log n)$ em todos os casos, devido à operação de construção e remoção do heap.
+    \item \textbf{In-place:} Sim, o \textit{Heap Sort} é in-place, já que ele ordena a lista sem usar memória adicional significativa.
+    \item \textbf{Estabilidade:} Não, o \textit{Heap Sort} não é estável, pois a ordem relativa de elementos iguais pode ser alterada durante a organização do heap.
+\end{itemize}
+
+
+\section{Metodologia}
+
+A seguir, são descritos os aspectos referentes ao ambiente de teste e ao procedimento utilizado para a realização dos experimentos.
+
+\subsection{Ambiente de Teste}
+
+\subsubsection{Hardware}
+O hardware utilizado para a execução dos algoritmos de ordenação foi um notebook \textit{Nitro 5} da \textit{Acer} com as seguintes especificações: processador \textit{Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz 2.59 GHz}, 24GB de memória RAM, armazenamento em SSD de 480GB e uma placa de vídeo dedicada \textit{GTX 1650} com 4GB de VRAM.
+
+\subsubsection{Software}
+O ambiente de desenvolvimento escolhido foi o \textit{Visual Studio Code}, utilizando o \textit{Windows} como sistema operacional. A linguagem de programação adotada foi \textit{C}, devido à sua eficiência e velocidade de execução. Inicialmente, tentamos utilizar \textit{Python} para a implementação, mas os tempos de execução observados eram muito maiores (mais de dez vezes mais lentos) em comparação ao \textit{C}.
+
+\subsection{Procedimentos}
+
+Para medir o tempo de execução dos algoritmos, utilizamos a biblioteca \texttt{time.h} da linguagem \textit{C}, convertendo os tempos para milissegundos. Além disso, para contar o número de comparações e trocas efetuadas por cada algoritmo, foram criadas duas variáveis: \textbf{comparacoes}, que era incrementada em +1 a cada comparação realizada, e \textbf{trocas}, que também era incrementada em +1 a cada troca de elementos efetuada pelo algoritmo.
+
+
+\subsection{Implementação dos Algoritmos}
+
+A implementação dos algoritmos seguiu um padrão geral em C, com foco na eficiência e clareza do código. Inicialmente, foram realizadas pesquisas teóricas sobre o funcionamento de cada algoritmo, seguidas da prática com a codificação. Todos os algoritmos compartilham uma estrutura similar, onde a entrada é lida a partir de arquivos \texttt{.txt}, contendo listas geradas previamente. Essas listas são utilizadas para garantir consistência nos testes de desempenho, com diferentes padrões de ordenação: listas aleatórias, já ordenadas e inversamente ordenadas. 
+
+Para o controle de versão, utilizamos o Git, e todo o repositório com o código-fonte está disponível no GitHub, acessível pelo link abaixo:
+
+\begin{itemize}
+    \item \url{https://github.com/joaovictorwg/PAA}
+\end{itemize}
+
+\subsection{Medição das Métricas}
+
+Para a avaliação do desempenho dos algoritmos, foram medidas três métricas principais: tempo de execução, número de comparações e número de trocas realizadas durante o processo de ordenação. Essas métricas foram implementadas diretamente no código, com contadores dedicados para comparações e trocas, além da utilização da função \texttt{clock()} da biblioteca \texttt{time.h} para medir o tempo de execução.
+
+O procedimento para medir essas métricas foi o seguinte: 
+\begin{enumerate}
+    \item As listas de entrada foram lidas de arquivos \texttt{.txt}, sendo que cada algoritmo processa as mesmas listas em diferentes formatos (aleatória, ordenada e inversa).
+    \item Durante a execução de cada algoritmo, incrementamos contadores para cada comparação entre elementos e para cada troca realizada.
+    \item O tempo de execução foi capturado marcando o início e o término de cada execução com a função \texttt{clock()}, e o resultado foi convertido para milissegundos para maior precisão.
+\end{enumerate}
+
+Dessa forma, foi possível comparar o desempenho dos diferentes algoritmos com base nos padrões de listas utilizados, proporcionando uma análise detalhada de cada implementação.
+
+\section{Resultados}
+
+Nesta seção, apresentamos os resultados obtidos durante os testes de desempenho do algoritmo \textit{Bubble Sort} em diferentes tipos de listas (aleatória, ordenada e inversa) e para diferentes tamanhos de entrada. As métricas analisadas incluem o tempo de execução, o número de comparações e o número de trocas.
+
+\subsection{Bubble Sort}
+
+Os resultados dos testes do algoritmo \textit{Bubble Sort} foram agrupados de acordo com o tipo de lista (aleatória, ordenada e inversa) e o tamanho da entrada (1.000, 10.000, 50.000 e 100.000 elementos).
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Bubble Sort} para listas de 1.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 3,000               & 499.500              & 251.478         \\ \hline
+Ordenada               & 0,000               & 499.500              & 0               \\ \hline
+Inversa                & 1,000               & 499.500              & 499.500         \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Bubble Sort} para listas de 10.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 364,000             & 49.995.000           & 25.124.789      \\ \hline
+Ordenada               & 155,000             & 49.995.000           & 0               \\ \hline
+Inversa                & 364,000             & 49.995.000           & 49.995.000      \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Bubble Sort} para listas de 50.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 9.965,000           & 1.249.975.000        & 624.908.526     \\ \hline
+Ordenada               & 3.562,000           & 1.249.975.000        & 0               \\ \hline
+Inversa                & 6.911,000           & 1.249.975.000        & 1.249.975.000   \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Bubble Sort} para listas de 100.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 38.351,000          & 4.999.950.000        & 2.499.068.268   \\ \hline
+Ordenada               & 18.132,000          & 4.999.950.000        & 0               \\ \hline
+Inversa                & 33.067,000          & 4.999.950.000        & 4.999.950.000   \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Análise dos Resultados}
+
+Os resultados mostram claramente o impacto da ordem inicial dos elementos nas métricas do \textit{Bubble Sort}. Observa-se que:
+
+\begin{itemize}
+    \item Para listas ordenadas, o número de trocas é zero, e o tempo de execução é significativamente menor em comparação com as listas aleatórias e inversas.
+    \item As listas inversamente ordenadas resultam no maior número de trocas, o que, consequentemente, aumenta o tempo de execução.
+    \item O tempo de execução cresce de forma exponencial com o aumento do tamanho das listas, o que reflete a complexidade quadrática do \textit{Bubble Sort}.
+\end{itemize}
+
+\newpage
+
+\subsection{Selection Sort}
+
+Os resultados dos testes do algoritmo \textit{Selection Sort} foram agrupados de acordo com o tipo de lista (aleatória, ordenada e inversa) e o tamanho da entrada (1.000, 10.000, 50.000 e 100.000 elementos).
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Selection Sort} para listas de 1.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 0,000               & 499.500              & 993             \\ \hline
+Ordenada               & 4,000               & 499.500              & 0               \\ \hline
+Inversa                & 4,000               & 499.500              & 500             \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Selection Sort} para listas de 10.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 192,000             & 49.995.000           & 9.991           \\ \hline
+Ordenada               & 180,000             & 49.995.000           & 0               \\ \hline
+Inversa                & 162,000             & 49.995.000           & 5.000           \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Selection Sort} para listas de 50.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 4.969,000           & 1.249.975.000        & 49.987          \\ \hline
+Ordenada               & 3.819,000           & 1.249.975.000        & 0               \\ \hline
+Inversa                & 3.441,000           & 1.249.975.000        & 25.000          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Selection Sort} para listas de 100.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 17.255,000          & 4.999.950.000        & 99.985          \\ \hline
+Ordenada               & 16.379,000          & 4.999.950.000        & 0               \\ \hline
+Inversa                & 15.539,000          & 4.999.950.000        & 50.000          \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Análise dos Resultados}
+
+Os resultados demonstram o desempenho do \textit{Selection Sort} de forma clara. Observa-se que:
+
+\begin{itemize}
+    \item Para listas ordenadas, o número de trocas é zero, resultando em um tempo de execução reduzido.
+    \item A lista aleatória apresenta um número significativo de trocas, refletindo um tempo de execução maior, mas ainda assim melhor do que o \textit{Bubble Sort}.
+    \item Para listas inversamente ordenadas, o número de trocas é elevado, aumentando o tempo de execução em relação às listas ordenadas, mas sem atingir o mesmo nível de ineficiência do \textit{Bubble Sort}.
+    \item A complexidade do \textit{Selection Sort} se mantém $O(n^2)$, o que é evidente pelo crescimento do tempo de execução à medida que o tamanho da lista aumenta.
+\end{itemize}
+
+
+
+
+\subsection{Insertion Sort}
+
+Os resultados dos testes do algoritmo \textit{Insertion Sort} foram agrupados de acordo com o tipo de lista (aleatória, ordenada e inversa) e o tamanho da entrada (1.000, 10.000, 50.000 e 100.000 elementos).
+
+\begin{table}[H] 
+    \centering 
+    \caption{Métricas do \textit{Insertion Sort} para listas de 1.000 elementos} 
+    \begin{tabular}{|c|c|c|c|} 
+        \hline 
+        \textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ 
+        \hline 
+        Aleatória & 2.000 & 252.477 & 251.478 \\ 
+        \hline 
+        Ordenada & 0.000 & 999 & 0 \\ 
+        \hline 
+        Inversa & 2.000 & 500.499 & 499.500 \\ 
+        \hline 
+    \end{tabular} 
+\end{table}
+
+\begin{table}[H] 
+    \centering 
+    \caption{Métricas do \textit{Insertion Sort} para listas de 10.000 elementos} 
+    \begin{tabular}{|c|c|c|c|} 
+        \hline 
+        \textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ 
+        \hline 
+        Aleatória & 129.000 & 25.134.788 & 25.124.789 \\ 
+        \hline 
+        Ordenada & 0.000 & 9.999 & 0 \\ 
+        \hline 
+        Inversa & 259.000 & 50.004.999 & 49.995.000 \\ 
+        \hline 
+    \end{tabular} 
+\end{table}
+
+\begin{table}[H] 
+    \centering 
+    \caption{Métricas do \textit{Insertion Sort} para listas de 50.000 elementos} 
+    \begin{tabular}{|c|c|c|c|} 
+        \hline 
+        \textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ 
+        \hline 
+        Aleatória & 2.736.000 & 624.958.525 & 624.908.526 \\ 
+        \hline 
+        Ordenada & 0.000 & 49.999 & 0 \\ 
+        \hline 
+        Inversa & 4.909.000 & 1.250.024.999 & 1.249.975.000 \\ 
+        \hline 
+    \end{tabular} 
+\end{table}
+
+\begin{table}[H] 
+    \centering 
+    \caption{Métricas do \textit{Insertion Sort} para listas de 100.000 elementos} 
+    \begin{tabular}{|c|c|c|c|} 
+        \hline 
+        \textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ 
+        \hline 
+        Aleatória & 9.867.000 & 2.499.168.267 & 2.499.068.268 \\ 
+        \hline 
+        Ordenada & 1.000 & 99.999 & 0 \\ 
+        \hline 
+        Inversa & 19.619.000 & 5.000.049.999 & 4.999.950.000 \\ 
+        \hline 
+    \end{tabular} 
+\end{table}
+
+
+\subsubsection{Análise dos Resultados}
+
+Os resultados mostram claramente o impacto da ordem inicial dos elementos nas métricas do \textit{Insertion Sort}. Observa-se que: \begin{itemize} \item Para listas já ordenadas, o número de trocas é zero, e o tempo de execução é praticamente nulo em comparação com as listas aleatórias e inversas. \item As listas inversamente ordenadas resultam no maior número de trocas, o que, consequentemente, aumenta significativamente o tempo de execução. \item O tempo de execução cresce de forma exponencial com o aumento do tamanho das listas, refletindo a complexidade quadrática do \textit{Insertion Sort} em casos desfavoráveis. \end{itemize}
+
+Gráficos comparativos de desempenho entre diferentes tipos de listas e tamanhos podem ser incluídos para uma melhor visualização dos resultados.
+
+
+\subsection{Merge Sort}
+
+Os resultados dos testes do algoritmo \textit{Merge Sort} foram agrupados de acordo com o tipo de lista (aleatória, ordenada e inversa) e o tamanho da entrada (1.000, 10.000, 50.000 e 100.000 elementos).
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Merge Sort} para listas de 1.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 2,000               & 8.699                & 1.277           \\ \hline
+Ordenada               & 0,000               & 5.044                & 4.932           \\ \hline
+Inversa                & 0,000               & 4.932                & 5.044           \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Merge Sort} para listas de 10.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 5,000               & 120.405              & 13.211          \\ \hline
+Ordenada               & 5,000               & 69.008               & 64.608          \\ \hline
+Inversa                & 6,000               & 64.608               & 69.008          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Merge Sort} para listas de 50.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 32,000              & 718.052              & 66.412          \\ \hline
+Ordenada               & 23,000              & 401.952              & 382.512         \\ \hline
+Inversa                & 27,000              & 382.512              & 401.952         \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Merge Sort} para listas de 100.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 62,000              & 1.536.197            & 132.731         \\ \hline
+Ordenada               & 51,000              & 853.904              & 815.024         \\ \hline
+Inversa                & 51,000              & 815.024              & 853.904         \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Análise dos Resultados}
+
+Os resultados evidenciam a eficiência do \textit{Merge Sort} em comparação com outros algoritmos de ordenação. Observa-se que:
+
+\begin{itemize}
+    \item Para listas ordenadas, o número de trocas é significativamente menor, refletindo o comportamento eficiente do algoritmo em listas que já estão em ordem.
+    \item O tempo de execução para listas aleatórias é um pouco maior, mas ainda assim é consideravelmente melhor do que o \textit{Bubble Sort}.
+    \item O \textit{Merge Sort} demonstra um desempenho consistente, independente da ordem inicial da lista, apresentando um crescimento linear em relação ao tamanho das listas, o que indica sua complexidade $O(n \log n)$.
+    \item As métricas de comparações e trocas são relevantes para entender o funcionamento interno do algoritmo, onde o número de comparações tende a ser mais estável em diferentes cenários de entrada.
+\end{itemize}
+
+\subsection{Quick Sort}
+
+Os resultados dos testes do algoritmo \textit{Quick Sort} foram agrupados de acordo com o tipo de lista (aleatória, ordenada e inversa) e o tamanho da entrada (1.000, 10.000, 50.000 e 100.000 elementos).
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Quick Sort} para listas de 1.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\
+\hline
+Aleatória & 0,000 & 9330 & 5103 \\
+\hline
+Ordenada & 0,000 & 7987 & 4449 \\
+\hline
+Inversa & 1,000 & 14378 & 8925 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Quick Sort} para listas de 10.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\
+\hline
+Aleatória & 2,000 & 132067 & 69310 \\
+\hline
+Ordenada & 0,000 & 113631 & 60517 \\
+\hline
+Inversa & 2,000 & 225614 & 138745 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Quick Sort} para listas de 50.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\
+\hline
+Aleatória & 11,000 & 809633 & 409429 \\
+\hline
+Ordenada & 6,000 & 684481 & 365285 \\
+\hline
+Inversa & 11,000 & 1418614 & 867905 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Quick Sort} para listas de 100.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\
+\hline
+Aleatória & 25,000 & 1782811 & 851894 \\
+\hline
+Ordenada & 11,000 & 1468946 & 780565 \\
+\hline
+Inversa & 26,000 & 3087334 & 1885849 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Análise dos Resultados}
+
+Os resultados do algoritmo \textit{Quick Sort} mostram como a ordem inicial dos elementos impacta suas métricas de desempenho. Observa-se que:
+
+\begin{itemize}
+    \item Para listas já ordenadas, o número de comparações e trocas é consideravelmente menor em comparação com listas aleatórias e inversas, evidenciando a eficiência do algoritmo em cenários favoráveis.
+    \item Listas aleatórias apresentam um desempenho médio, com um número de comparações e trocas que se alinha com a expectativa de comportamento do \textit{Quick Sort}, que é \(O(n \log n)\) em média.
+    \item As listas inversamente ordenadas resultam em um aumento significativo no número de comparações e trocas, refletindo um pior caso que se aproxima de \(O(n^2)\), evidenciado pelo aumento do tempo de execução.
+    \item O tempo de execução do \textit{Quick Sort} aumenta de forma sub-linear com o crescimento do tamanho das listas, o que é consistente com sua complexidade média de \(O(n \log n)\). No entanto, o pior caso é visível em listas inversamente ordenadas, onde o tempo de execução pode ser drasticamente maior.
+\end{itemize}
+
+
+
+\subsection{Heap Sort}
+
+Os resultados dos testes do algoritmo \textit{Heap Sort} foram agrupados de acordo com o tipo de lista (aleatória, ordenada e inversa) e o tamanho da entrada (1.000, 10.000, 50.000 e 100.000 elementos).
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Heap Sort} para listas de 1.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 1,000               & 16.854               & 9.096           \\ \hline
+Ordenada               & 0,000               & 17.583               & 9.709           \\ \hline
+Inversa                & 0,000               & 15.965               & 8.317           \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Heap Sort} para listas de 10.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 3,000               & 235.353              & 124.135         \\ \hline
+Ordenada               & 3,000               & 244.460              & 131.957         \\ \hline
+Inversa                & 3,000               & 226.682              & 116.697         \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Heap Sort} para listas de 50.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 22,000              & 1.409.932            & 737.576         \\ \hline
+Ordenada               & 17,000              & 1.455.438            & 773.305         \\ \hline
+Inversa                & 15,000              & 1.366.047            & 698.893         \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas do \textit{Heap Sort} para listas de 100.000 elementos}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tipo de Lista} & \textbf{Tempo (ms)} & \textbf{Comparações} & \textbf{Trocas} \\ \hline
+Aleatória              & 45,000              & 3.019.884            & 1.574.964       \\ \hline
+Ordenada               & 34,000              & 3.112.517            & 1.650.855       \\ \hline
+Inversa                & 34,000              & 2.926.640            & 1.497.435       \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Análise dos Resultados}
+
+Os resultados mostram a eficiência do \textit{Heap Sort} em comparação com outros algoritmos de ordenação. Observa-se que:
+
+\begin{itemize}
+    \item O tempo de execução para listas ordenadas e inversas é comparável ao das listas aleatórias, indicando que o \textit{Heap Sort} mantém um desempenho estável independentemente da ordem inicial.
+    \item As métricas de comparações e trocas mostram que, apesar de realizar um número significativo de comparações, o número de trocas é relativamente menor, refletindo a eficiência do algoritmo na organização dos dados.
+    \item O \textit{Heap Sort} apresenta um desempenho consistente, com uma complexidade de tempo de $O(n \log n)$, tornando-se uma boa escolha para listas grandes.
+    \item A análise das trocas em listas já ordenadas demonstra que o \textit{Heap Sort} ainda realiza um número considerável de operações, mas isso é típico em algoritmos de ordenação que utilizam uma abordagem baseada em comparação.
+\end{itemize}
+
+\subsection{Gráficos Comparativos}
+
+
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{tempo-aleatoria.png}
+        \caption{Comparação de Tempo de Execução para Listas Aleatórias}
+        \label{fig:enter-label}
+    \end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{comparacoes-aleatoria.png}
+    \caption{Número de Comparações para Listas Aleatórias}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{trocas-aleatorias.png}
+    \caption{Número de Trocas para Listas Aleatórias}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{tempo-ordenada.png}
+    \caption{Comparação de Tempo de Execução para Listas Ordenadas}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{comparacoes-ordenada.png}
+    \caption{Número de Comparações para Listas Ordenadas}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{trocas-ordenada.png}
+    \caption{Número de Trocas para Listas Ordenadas}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{tempo-inversa.png}
+    \caption{Comparação de Tempo de Execução para Listas Inversamente Ordenadas}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{comparacoes-inversa.png}
+    \caption{Número de Comparações para Listas Inversamente Ordenadas}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{trocas-inversa.png}
+    \caption{Número de Trocas para Listas Inversamente Ordenadas}
+    \label{fig:enter-label}
+\end{figure}
+
+\newpage
+\section{Discussão}
+
+Nesta seção, analisamos os resultados obtidos para os algoritmos de ordenação testados, comparando-os com as expectativas teóricas, discutindo aspectos práticos como implementação e uso de memória, e abordando limitações do estudo e sugestões para pesquisas futuras.
+
+\subsection{Análise dos Resultados}
+
+Os resultados dos testes revelam comportamentos distintos entre os algoritmos de ordenação, alinhando-se com as expectativas teóricas:
+
+1. \textbf{Complexidade Teórica}: 
+   - O \textit{Bubble Sort} apresentou um desempenho inferior, especialmente em listas aleatórias e inversas, devido à sua complexidade quadrática \(O(n^2)\). Isso é consistente com a teoria, onde a eficiência diminui rapidamente à medida que o tamanho da lista aumenta.
+   - O \textit{Selection Sort}, embora também tenha complexidade \(O(n^2)\), mostrou um desempenho ligeiramente melhor que o \textit{Bubble Sort}, mas ainda assim ineficiente para listas grandes.
+   - O \textit{Merge Sort} e o \textit{Heap Sort} demonstraram um desempenho mais robusto, com complexidade \(O(n \log n)\), refletindo suas vantagens teóricas em listas maiores, onde ambos os algoritmos mantiveram tempos de execução relativamente baixos independentemente da ordem dos dados.
+
+2. \textbf{Estabilidade dos Algoritmos}: 
+   - A estabilidade dos algoritmos é um fator importante. O \textit{Merge Sort} é estável, o que significa que mantém a ordem relativa dos elementos iguais, enquanto o \textit{Heap Sort} e o \textit{Selection Sort} não são estáveis. Essa característica pode ser decisiva dependendo do contexto em que os algoritmos são utilizados.
+
+\subsection{Facilidade de Implementação e Uso de Memória}
+
+- \textbf{Facilidade de Implementação}: 
+  - O \textit{Bubble Sort} e o \textit{Selection Sort} são intuitivos e fáceis de implementar, tornando-os adequados para fins educacionais. Em contrapartida, o \textit{Merge Sort} e o \textit{Heap Sort} são mais complexos, exigindo uma compreensão mais profunda das estruturas de dados, como listas encadeadas e árvores.
+  
+- \textbf{Uso de Memória}: 
+  - O \textit{Merge Sort} requer espaço adicional para armazenar sub-listas, o que pode ser uma desvantagem em ambientes com restrições de memória. O \textit{Heap Sort}, por outro lado, opera em um espaço constante \(O(1)\), tornando-o mais eficiente em termos de uso de memória.
+
+\subsection{Limitações do Trabalho}
+
+Este estudo apresenta algumas limitações que devem ser consideradas:
+
+1. \textbf{Tamanhos de Entrada Limitados}: 
+   - Os testes foram realizados com tamanhos de entrada específicos, e a generalização dos resultados para listas de tamanhos diferentes pode não ser precisa.
+
+2. \textbf{Ambiente de Teste}: 
+   - Os testes foram executados em um ambiente controlado, e o desempenho pode variar em diferentes sistemas e configurações de hardware.
+
+3. \textbf{Número de Algoritmos}: 
+   - A análise se concentrou em apenas alguns algoritmos de ordenação, deixando de lado outros métodos que podem ter desempenho superior ou inferior em contextos específicos.
+
+\subsection{Sugestões para Estudos Futuros}
+
+Para pesquisas futuras, sugerimos:
+
+1. \textbf{Avaliação de Algoritmos Adicionais}: 
+   - Incluir uma variedade maior de algoritmos de ordenação, como o \textit{Quick Sort} e \textit{Tim Sort}, para uma análise comparativa mais abrangente.
+
+2. \textbf{Testes em Diferentes Ambientes}: 
+   - Realizar testes em diferentes plataformas e ambientes de execução para avaliar como as implementações se comportam em condições variadas.
+
+3. \textbf{Análise de Casos Reais}: 
+   - Aplicar os algoritmos em conjuntos de dados reais, avaliando o impacto de características específicas dos dados sobre o desempenho.
+
+4. \textbf{Exploração de Otimizações}: 
+   - Investigar otimizações potenciais em algoritmos existentes, como a adaptação de estratégias híbridas que combinam métodos de ordenação para melhorar a eficiência.
+
+Essas direções podem ampliar a compreensão sobre a eficiência e aplicabilidade dos algoritmos de ordenação em cenários práticos.
+
+
+\section{Conclusão}
+
+Nesta seção, apresentamos uma síntese dos principais achados do trabalho, além de recomendações sobre o uso de cada algoritmo em diferentes situações.
+
+\subsection{Síntese dos Principais Achados}
+
+Os testes realizados demonstraram que cada algoritmo de ordenação possui características distintas que impactam seu desempenho de acordo com a natureza da lista a ser ordenada e seu tamanho.
+
+\begin{itemize}
+    \item \textbf{Bubble Sort}: Embora seja um algoritmo simples de entender e implementar, o Bubble Sort apresenta desempenho insatisfatório, especialmente em listas grandes. O tempo de execução aumenta drasticamente com o aumento do tamanho da lista, tornando-o adequado apenas para listas pequenas ou quando a simplicidade é priorizada.
+    
+    \item \textbf{Selection Sort}: O Selection Sort também possui complexidade quadrática (O(n²)), mas sua performance é ligeiramente melhor que a do Bubble Sort em listas aleatórias e inversas, apresentando menos trocas. Contudo, continua a ser impraticável para listas grandes.
+    
+    \item \textbf{Insertion Sort}: O Insertion Sort é mais eficiente que os dois anteriores, especialmente em listas que já estão quase ordenadas. Seu desempenho é aceitável para listas de tamanho moderado, mas ainda não é a melhor escolha para listas grandes devido à complexidade quadrática no pior caso.
+    
+    \item \textbf{Merge Sort}: Este algoritmo é eficiente, com complexidade O(n log n) em todos os casos. É especialmente útil para listas grandes e é estável, o que significa que preserva a ordem relativa dos elementos iguais. É uma excelente escolha para aplicações que exigem consistência nos resultados.
+    
+    \item \textbf{Quick Sort}: O Quick Sort é geralmente o algoritmo mais rápido em média para listas não ordenadas, com complexidade média de O(n log n). No entanto, seu desempenho pode ser degradado em listas já ordenadas ou com muitos elementos repetidos, a menos que técnicas como a escolha aleatória do pivô sejam implementadas.
+    
+    \item \textbf{Heap Sort}: O Heap Sort combina a eficiência do Quick Sort e a estabilidade do Merge Sort. Com complexidade O(n log n), é uma boa escolha para listas grandes, mas não é estável. É preferido em situações onde a memória é limitada, pois não requer espaço adicional significativo.
+\end{itemize}
+
+\subsection{Recomendações sobre o Uso de Cada Algoritmo}
+
+Com base nos resultados e análises realizadas, as seguintes recomendações são apresentadas para o uso de cada algoritmo em diferentes situações:
+
+\begin{itemize}
+    \item Para listas pequenas e quando a simplicidade é um fator importante, \textbf{Bubble Sort} ou \textbf{Selection Sort} podem ser utilizados, apesar de suas ineficiências.
+    
+    \item O \textbf{Insertion Sort} é recomendado para listas que estão quase ordenadas ou para tamanhos pequenos a moderados, onde pode demonstrar desempenho aceitável.
+    
+    \item Para aplicações que lidam com listas grandes, o \textbf{Merge Sort} ou o \textbf{Quick Sort} são as melhores opções devido à sua eficiência superior. O Quick Sort deve ser usado com cuidado em listas já ordenadas ou com muitos elementos repetidos, enquanto o Merge Sort é uma escolha segura.
+    
+    \item O \textbf{Heap Sort} deve ser considerado em situações onde a utilização de memória é uma preocupação e uma complexidade garantida de O(n log n) é necessária.
+\end{itemize}
+
+\section{Referências}
+
+\begin{thebibliography}{99}
+
+\bibitem{bhargava}
+Bhargava, A. Y. (2016). \textit{Entendendo Algoritmos: Um guia ilustrado para programadores e outros curiosos}. O'Reilly Media.
+
+\bibitem{ali2016}
+Ali, W., Islam, T., Mahmood, A., et al. (2016). Comparison of Different Sorting Algorithms. \textit{Computer Science}, 28 July 2016.
+
+\bibitem{cormen2024}
+Cormen, T. H., Leiserson, C. E., Rivest, R. L., et al. (2024). \textit{Algoritmos: Teoria e Prática} (4ª ed.). GEN LTC. ISBN: 8595159904, 9788595159907.
+
+\end{thebibliography}
+
+
+\end{document}
