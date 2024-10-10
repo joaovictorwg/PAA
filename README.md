@@ -8,6 +8,8 @@ Este repositório contém os arquivos relacionados ao trabalho de análise de al
 
 - **Relatório**: Documento explicando os experimentos e resultados obtidos com os algoritmos de ordenação.
   - [Relatório.pdf](https://github.com/joaovictorwg/PAA/blob/main/trabalho-ordenacao-algoritmos/Relatorio.pdf)
+  - [Relatório.tex](https://github.com/joaovictorwg/PAA/blob/main/trabalho-ordenacao-algoritmos/relatorio.tex)
+  - [Relatório no Overleaf](https://www.overleaf.com/project/6701eecce2a7e64eda79c751)
 
 - **Listas de Teste**: Conjunto de listas usadas para testar os algoritmos de ordenação com diferentes cenários (aleatórias, ordenadas e inversamente ordenadas).
   - [Listas de Teste](https://github.com/joaovictorwg/PAA/tree/main/trabalho-ordenacao-algoritmos/listas)
