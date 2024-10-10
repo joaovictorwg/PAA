@@ -4,6 +4,8 @@
 
 Este repositório contém os arquivos relacionados ao trabalho de análise de algoritmos de ordenação realizado no contexto da disciplina de Projeto e Análise de Algoritmos (PAA). Abaixo estão os principais arquivos e pastas do projeto, juntamente com as descrições.
 
+# O Trabalho foi desenvolvido pelos alunos: João Victor Walcacer Giani e Daniel Nolêto Maciel Luz
+
 ## Conteúdo
 
 - **Relatório**: Relatório explicando os experimentos e resultados obtidos com os algoritmos de ordenação. O relatório foi disponibilizado em formato .pdf e .tex, e foi disponibilizado também o link para o relatório no OverLeaf
