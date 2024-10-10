@@ -6,7 +6,7 @@ Este repositório contém os arquivos relacionados ao trabalho de análise de al
 
 ## Conteúdo
 
-- **Relatório**: Documento explicando os experimentos e resultados obtidos com os algoritmos de ordenação.
+- **Relatório**: Relatório explicando os experimentos e resultados obtidos com os algoritmos de ordenação. O relatório foi disponibilizado em formato .pdf e .tex, e foi disponibilizado também o link para o relatório no OverLeaf
   - [Relatório.pdf](https://github.com/joaovictorwg/PAA/blob/main/trabalho-ordenacao-algoritmos/Relatorio.pdf)
   - [Relatório.tex](https://github.com/joaovictorwg/PAA/blob/main/trabalho-ordenacao-algoritmos/relatorio.tex)
   - [Relatório no Overleaf](https://www.overleaf.com/project/6701eecce2a7e64eda79c751)
