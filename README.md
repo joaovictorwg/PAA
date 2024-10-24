@@ -4,10 +4,14 @@
 
 Este repositório contém os arquivos relacionados ao trabalho de análise de algoritmos de ordenação realizado no contexto da disciplina de Projeto e Análise de Algoritmos (PAA). Abaixo estão os principais arquivos e pastas do projeto, juntamente com as descrições.
 
+# O Trabalho foi desenvolvido pelos alunos: João Victor Walcacer Giani e Daniel Nolêto Maciel Luz
+
 ## Conteúdo
 
-- **Relatório**: Documento explicando os experimentos e resultados obtidos com os algoritmos de ordenação.
+- **Relatório**: Relatório explicando os experimentos e resultados obtidos com os algoritmos de ordenação. O relatório foi disponibilizado em formato .pdf e .tex, e foi disponibilizado também o link para o relatório no OverLeaf
   - [Relatório.pdf](https://github.com/joaovictorwg/PAA/blob/main/trabalho-ordenacao-algoritmos/Relatorio.pdf)
+  - [Relatório.tex](https://github.com/joaovictorwg/PAA/blob/main/trabalho-ordenacao-algoritmos/relatorio.tex)
+  - [Relatório no Overleaf](https://www.overleaf.com/read/qxvqhjfsczmz#56b596)
 
 - **Listas de Teste**: Conjunto de listas usadas para testar os algoritmos de ordenação com diferentes cenários (aleatórias, ordenadas e inversamente ordenadas).
   - [Listas de Teste](https://github.com/joaovictorwg/PAA/tree/main/trabalho-ordenacao-algoritmos/listas)
